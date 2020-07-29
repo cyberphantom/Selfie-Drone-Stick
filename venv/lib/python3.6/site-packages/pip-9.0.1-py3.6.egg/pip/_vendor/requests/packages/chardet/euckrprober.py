@@ -1,4 +1,14 @@
 ######################## BEGIN LICENSE BLOCK ########################
+# The Original Code is mozilla.org code.
+#
+# The Initial Developer of the Original Code is
+# Netscape Communications Corporation.
+# Portions created by the Initial Developer are Copyright (C) 1998
+# the Initial Developer. All Rights Reserved.
+#
+# Contributor(s):
+#   Mark Pilgrim - port to Python
+#
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
 # License as published by the Free Software Foundation; either
@@ -15,18 +25,18 @@
 # 02110-1301  USA
 ######################### END LICENSE BLOCK #########################
 
-__version__ = "2.3.0"
-from sys import version_info
+from .mbcharsetprober import MultiByteCharSetProber
+from .codingstatemachine import CodingStateMachine
+from .chardistribution import EUCKRDistributionAnalysis
+from .mbcssm import EUCKRSMModel
 
 
-def detect(aBuf):
-    if ((version_info < (3, 0) and isinstance(aBuf, unicode)) or
-            (version_info >= (3, 0) and not isinstance(aBuf, bytes))):
-        raise ValueError('Expected a bytes object, not a unicode object')
+class EUCKRProber(MultiByteCharSetProber):
+    def __init__(self):
+        MultiByteCharSetProber.__init__(self)
+        self._mCodingSM = CodingStateMachine(EUCKRSMModel)
+        self._mDistributionAnalyzer = EUCKRDistributionAnalysis()
+        self.reset()
 
-    from . import universaldetector
-    u = universaldetector.UniversalDetector()
-    u.reset()
-    u.feed(aBuf)
-    u.close()
-    return u.result
+    def get_charset_name(self):
+        return "EUC-KR"
