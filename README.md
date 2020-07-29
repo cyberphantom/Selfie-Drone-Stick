@@ -9,4 +9,5 @@ Package Dependencies:
 5. keras: 2.2.2
 6. ROS: Indigo
 
-### IROS 2020 Paper: SelfieDroneStick:  A  Natural  Interface  for  Quadcopter  Photography
+### IROS 2020 Conference  
+### Paper: SelfieDroneStick:  A  Natural  Interface  for  Quadcopter  Photography
