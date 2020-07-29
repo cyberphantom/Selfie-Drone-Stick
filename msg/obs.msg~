@@ -1,0 +1,20 @@
+# header
+Header      header
+
+
+# ----------------- drone state ----------------------
+int  drone_state
+
+# ----------------- Face detection data (Target1 2 3) ----------------------
+float32 fc_bbx_cent_x
+float32 fc_bbx_cent_y
+float32 fc_bbx_rat
+
+# ----------------- mobile device data (Target4) ----------------------
+float32 fused_z_orientation	# z axis -ve to the left +ve to the right (Yaw)
+
+# ----------------- drone observation and Human Dectection data ----------------------
+float32 drone_yaw
+float32 hu_bbx_cent_x
+float32 hu_bbx_cent_y
+float32 hu_bbx_rat
