@@ -1,19 +1,23 @@
-<?xml version="1.0"?>
+<!--
+    Date of creation: 10/07/2018
+    License LGPLV3 << Basically means you can do whatever you want with this!
+-->
+
 <launch>
- <node name="video_server" pkg="web_video_server" type="web_video_server">
+
+<node name="video_server" pkg="web_video_server" type="web_video_server">
   </node>
-  <arg name="port" default="9090" />
+<arg name="port" default="9090" />
   <arg name="address" default="" />
-  <arg name="ssl" default="false" />
-  <arg name="certfile" default=""/>
-  <arg name="keyfile" default="" />
+  <arg name="ssl" default="true" />
+  <arg name="certfile" default="/etc/apache2/ssl/ssd101.crt"/>
+  <arg name="keyfile" default="/etc/apache2/ssl/ssd101.key" />
 
   <arg name="retry_startup_delay" default="5" />
 
   <arg name="fragment_timeout" default="600" />
   <arg name="delay_between_messages" default="0" />
   <arg name="max_message_size" default="None" />
-  <arg name="unregister_timeout" default="10" />
 
   <arg name="authenticate" default="false" />
 
@@ -26,7 +30,7 @@
   <arg unless="$(arg bson_only_mode)" name="binary_encoder" default="default"/>
 
   <group if="$(arg ssl)">
-    <node name="rosbridge_websocket" pkg="rosbridge_server" type="rosbridge_websocket" output="screen">
+    <node name="rosbridge_websocket" pkg="rosbridge_server" type="rosbridge_websocket" 		output="screen">
       <param name="certfile" value="$(arg certfile)" />
       <param name="keyfile" value="$(arg keyfile)" />
       <param name="authenticate" value="$(arg authenticate)" />
@@ -36,7 +40,6 @@
       <param name="fragment_timeout" value="$(arg fragment_timeout)"/>
       <param name="delay_between_messages" value="$(arg delay_between_messages)"/>
       <param name="max_message_size" value="$(arg max_message_size)"/>
-      <param name="unregister_timeout" value="$(arg unregister_timeout)"/>
 
       <param name="topics_glob" value="$(arg topics_glob)"/>
       <param name="services_glob" value="$(arg services_glob)"/>
@@ -44,7 +47,7 @@
     </node>
   </group>
   <group unless="$(arg ssl)">
-    <node name="rosbridge_websocket" pkg="rosbridge_server" type="rosbridge_websocket" output="screen">
+    <node name="rosbridge_websocket" pkg="rosbridge_server" type="rosbridge_websocket" 		output="screen">
       <param name="authenticate" value="$(arg authenticate)" />
       <param name="port" value="$(arg port)"/>
       <param name="address" value="$(arg address)"/>
@@ -52,8 +55,7 @@
       <param name="fragment_timeout" value="$(arg fragment_timeout)"/>
       <param name="delay_between_messages" value="$(arg delay_between_messages)"/>
       <param name="max_message_size" value="$(arg max_message_size)"/>
-      <param name="unregister_timeout" value="$(arg unregister_timeout)"/>
-
+      
       <param name="topics_glob" value="$(arg topics_glob)"/>
       <param name="services_glob" value="$(arg services_glob)"/>
       <param name="params_glob" value="$(arg params_glob)"/>
@@ -66,5 +68,11 @@
     <param name="topics_glob" value="$(arg topics_glob)"/>
     <param name="services_glob" value="$(arg services_glob)"/>
     <param name="params_glob" value="$(arg params_glob)"/>
-  </node>
+  </node> 
+
+    <!-- Load parameters -->
+    <rosparam command="load" file="$(find reinforced_selfiestickdrone)/config/sds.yaml" />
+
+    <!-- Launch the main file -->
+        <node pkg="reinforced_selfiestickdrone" name="sds" type="sds.py" output="screen"/>
 </launch>

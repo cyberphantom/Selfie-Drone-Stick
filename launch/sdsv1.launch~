@@ -1,0 +1,14 @@
+<!--
+    Date of creation: 10/07/2018
+    License LGPLV3 << Basically means you can do whatever you want with this!
+-->
+
+<launch>
+
+
+    <!-- Load parameters -->
+    <rosparam command="load" file="$(find reinforced_selfiestickdrone)/config/sdsv1.yaml" />
+
+    <!-- Launch the main file -->
+        <node pkg="reinforced_selfiestickdrone" name="sdsv1" type="sdsv1.py" output="screen"/>
+</launch>

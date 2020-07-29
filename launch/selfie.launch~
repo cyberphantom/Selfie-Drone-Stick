@@ -1,19 +1,18 @@
 <?xml version="1.0"?>
-<launch>
- <node name="video_server" pkg="web_video_server" type="web_video_server">
+<launch> 
+<node name="video_server" pkg="web_video_server" type="web_video_server">
   </node>
-  <arg name="port" default="9090" />
+<arg name="port" default="9090" />
   <arg name="address" default="" />
-  <arg name="ssl" default="false" />
-  <arg name="certfile" default=""/>
-  <arg name="keyfile" default="" />
+  <arg name="ssl" default="true" />
+  <arg name="certfile" default="/etc/apache2/ssl/ssd101.crt"/>
+  <arg name="keyfile" default="/etc/apache2/ssl/ssd101.key" />
 
   <arg name="retry_startup_delay" default="5" />
 
   <arg name="fragment_timeout" default="600" />
   <arg name="delay_between_messages" default="0" />
   <arg name="max_message_size" default="None" />
-  <arg name="unregister_timeout" default="10" />
 
   <arg name="authenticate" default="false" />
 
@@ -36,7 +35,6 @@
       <param name="fragment_timeout" value="$(arg fragment_timeout)"/>
       <param name="delay_between_messages" value="$(arg delay_between_messages)"/>
       <param name="max_message_size" value="$(arg max_message_size)"/>
-      <param name="unregister_timeout" value="$(arg unregister_timeout)"/>
 
       <param name="topics_glob" value="$(arg topics_glob)"/>
       <param name="services_glob" value="$(arg services_glob)"/>
@@ -52,8 +50,7 @@
       <param name="fragment_timeout" value="$(arg fragment_timeout)"/>
       <param name="delay_between_messages" value="$(arg delay_between_messages)"/>
       <param name="max_message_size" value="$(arg max_message_size)"/>
-      <param name="unregister_timeout" value="$(arg unregister_timeout)"/>
-
+      
       <param name="topics_glob" value="$(arg topics_glob)"/>
       <param name="services_glob" value="$(arg services_glob)"/>
       <param name="params_glob" value="$(arg params_glob)"/>
@@ -66,5 +63,11 @@
     <param name="topics_glob" value="$(arg topics_glob)"/>
     <param name="services_glob" value="$(arg services_glob)"/>
     <param name="params_glob" value="$(arg params_glob)"/>
-  </node>
+  </node> 
+
+  <node name="selfie" pkg="selfiestickdrone" type="selfie.py" output="screen"/>
+  
+  <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="link1_broadcaster" args="1 0 0 0 0 0 1 iphone ardrone" />
+    <node name="rvizvisualisation" pkg="rviz" type="rviz" output="log" args="$(find selfiestickdrone)/../config/selfie.rviz" /> -->
+
 </launch>

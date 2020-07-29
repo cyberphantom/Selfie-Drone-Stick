@@ -1,0 +1,13 @@
+<!--
+    Date of creation: 10/07/2018
+    License LGPLV3 << Basically means you can do whatever you want with this!
+-->
+
+<launch>
+
+    <!-- Load parameters -->
+    <rosparam command="load" file="$(find reinforced_selfiestickdrone)/config/droneParams.yaml" />
+
+    <!-- Launch the main file -->
+        <node pkg="reinforced_selfiestickdrone" name="grad_dec_drone" type="grad_dec_drone.py" output="screen"/>
+</launch>
