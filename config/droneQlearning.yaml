@@ -1,0 +1,20 @@
+# Algortihm Parameters
+alpha: 0.1
+gamma: 0.9 # Higher gamma = smaller discount means care more about long term reward
+           # Small gamma = High discount means care more about short term reward.
+epsilon_start: 1.0
+epsilon_stop: 0.01
+decay_rate: 0.999
+nepisodes: 5000
+nsteps: 64
+running_step: 0.5   # in seconds
+
+# Environment Parameters
+desired_pose:
+    x: 1
+    y: 1.0
+    z: 2.0
+    w: -0.7
+max_incl: 8.0
+max_altitude: 8.0   # in meters
+speed_value: 1.0    # in m/s
